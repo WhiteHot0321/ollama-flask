@@ -1,0 +1,19 @@
+services:
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    container_name: ollama
+
+  flask-api:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - ollama
+    container_name: flask-api
+
+volumes:
+  ollama_data:
